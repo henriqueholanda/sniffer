@@ -1,10 +1,9 @@
 package main
 
 import (
+	"github.com/google/gopacket"
+	"github.com/google/gopacket/layers"
 	"log"
-
-	"code.google.com/p/gopacket"
-	"code.google.com/p/gopacket/layers"
 )
 
 type Sniffer interface {

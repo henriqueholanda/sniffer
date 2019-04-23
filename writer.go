@@ -1,11 +1,10 @@
 package main
 
 import (
+	"github.com/google/gopacket/layers"
+	"github.com/google/gopacket/pcapgo"
 	"log"
 	"os"
-
-	"code.google.com/p/gopacket/layers"
-	"code.google.com/p/gopacket/pcapgo"
 )
 
 // Open and create a pcap output file

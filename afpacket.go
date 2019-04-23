@@ -2,15 +2,13 @@ package main
 
 import (
 	"fmt"
-	"os"
-
-	"code.google.com/p/gopacket"
-	"code.google.com/p/gopacket/afpacket"
+	"github.com/google/gopacket"
+	//"os"
 )
 
 // afpacket version of the gopacket library
 type AfpacketSniffer struct {
-	handle *afpacket.TPacket
+	//handle *afpacket.TPacket
 }
 
 // Computes the block_size and the num_blocks in such a way that the
@@ -39,42 +37,43 @@ func afpacketComputeSize(target_size_mb int, snaplen int, page_size int) (
 
 func (s *AfpacketSniffer) Open(config *Config) error {
 	// Capture settings
-	const (
-		// MMap buffer size
-		buffer_mb int = 24
-		// Max packet length
-		snaplen int = 65536
-		// Set the interface in promiscuous mode
-		promisc bool = true
-	)
-
-	frame_size, block_size, num_blocks, err := afpacketComputeSize(
-		buffer_mb,
-		snaplen,
-		os.Getpagesize())
-	if err != nil {
-		return fmt.Errorf("Error calculating afpacket size: %s", err)
-	}
-
-	// Configure the afpacket ring and bind it to the interface
-	var tPacket *afpacket.TPacket
-	tPacket, err = afpacket.NewTPacket(
-		afpacket.OptInterface(*iface),
-		afpacket.OptFrameSize(frame_size),
-		afpacket.OptBlockSize(block_size),
-		afpacket.OptNumBlocks(num_blocks))
-	if err != nil {
-		fmt.Errorf("Error opening afpacket interface: %s", err)
-	}
-	s.handle = tPacket
-
+	//const (
+	//	// MMap buffer size
+	//	buffer_mb int = 24
+	//	// Max packet length
+	//	snaplen int = 65536
+	//	// Set the interface in promiscuous mode
+	//	promisc bool = true
+	//)
+	//
+	//frame_size, block_size, num_blocks, err := afpacketComputeSize(
+	//	buffer_mb,
+	//	snaplen,
+	//	os.Getpagesize())
+	//if err != nil {
+	//	return fmt.Errorf("Error calculating afpacket size: %s", err)
+	//}
+	//
+	//// Configure the afpacket ring and bind it to the interface
+	//var tPacket *afpacket.TPacket
+	//tPacket, err = afpacket.NewTPacket(
+	//	afpacket.OptInterface(*iface),
+	//	afpacket.OptFrameSize(frame_size),
+	//	afpacket.OptBlockSize(block_size),
+	//	afpacket.OptNumBlocks(num_blocks))
+	//if err != nil {
+	//	fmt.Errorf("Error opening afpacket interface: %s", err)
+	//}
+	//s.handle = tPacket
+	//
 	return nil
 }
 
 func (s *AfpacketSniffer) Close() {
-	s.handle.Close()
+	//s.handle.Close()
 }
 
 func (s *AfpacketSniffer) ReadPacket() (data []byte, ci gopacket.CaptureInfo, err error) {
-	return s.handle.ZeroCopyReadPacketData()
+	//return s.handle.ZeroCopyReadPacketData()
+	return nil, gopacket.CaptureInfo{}, nil
 }

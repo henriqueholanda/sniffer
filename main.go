@@ -2,18 +2,18 @@ package main
 
 import (
 	"flag"
+	"github.com/google/gopacket/pcapgo"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
-	"code.google.com/p/gopacket/pcapgo"
 	"github.com/vharitonsky/iniflags"
 )
 
 // Command line flags and documentation
 var (
-	iface    = flag.String("iface", "eth0", "Interface to capture packets")
+	iface    = flag.String("iface", "en0", "Interface to capture packets")
 	pcapOut  = flag.String("pcapOut", "", "File path to log all packets")
 	enableAF = flag.Bool("enableAf", false, "Enable afpacket mode")
 )

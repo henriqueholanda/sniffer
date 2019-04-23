@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/google/gopacket"
+	"github.com/google/gopacket/pcap"
 	"time"
 
-	"code.google.com/p/gopacket"
-	"code.google.com/p/gopacket/pcap"
 )
 
 // libpcap version of the gopacket library
