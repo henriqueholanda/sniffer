@@ -25,6 +25,7 @@ var (
 	udp     layers.UDP
 	icmp    layers.ICMPv4
 	dns     layers.DNS
+	tls     layers.TLS
 	payload gopacket.Payload
 )
 
@@ -42,11 +43,16 @@ func Listen(config *Config) error {
 		&udp,
 		&icmp,
 		&dns,
+		&tls,
 		&payload)
 
 	// Infinite loop that reads incoming packets
 	for config.isRunning {
 		data, ci, err := config.sniffer.ReadPacket()
+		//fmt.Println(data)
+		//fmt.Println(ci)
+		//fmt.Println(err)
+		//return nil
 		if err != nil {
 			log.Printf("Error getting packet: %v %s", err, ci)
 			continue
@@ -61,13 +67,13 @@ func Listen(config *Config) error {
 			continue
 		}
 
-		// Example of how to get data out of specific layers
-		//        for _, layerType := range decoded {
-		//            switch layerType {
-		//                case layers.LayerTypeIPv4:
-		//                    log.Printf("src: %v, dst: %v, proto: %v", ip.SrcIP, ip.DstIP, ip.Protocol)
-		//            }
-		//        }
+		//Example of how to get data out of specific layers
+		for _, layerType := range decoded {
+		   switch layerType {
+		       case layers.LayerTypeIPv4:
+		           log.Printf("src: %v, dst: %v, proto: %v, content: %v", ip.SrcIP, ip.DstIP, ip.Protocol, ip.Contents)
+		   }
+		}
 
 		if config.pcapWriter != nil {
 			config.pcapWriter.WritePacket(ci, data)

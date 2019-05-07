@@ -17,7 +17,7 @@ func (s *PcapSniffer) Open(config *Config) error {
 	// Capture settings
 	const (
 		// Max packet length
-		snaplen int32 = 65536
+		snaplen int32 = 2147483647
 		// Set the interface in promiscuous mode
 		promisc bool = true
 		// Timeout duration
@@ -48,5 +48,5 @@ func (s *PcapSniffer) Close() {
 }
 
 func (s *PcapSniffer) ReadPacket() (data []byte, ci gopacket.CaptureInfo, err error) {
-	return s.handle.ZeroCopyReadPacketData()
+	return s.handle.ReadPacketData()
 }

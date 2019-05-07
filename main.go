@@ -13,7 +13,7 @@ import (
 
 // Command line flags and documentation
 var (
-	iface    = flag.String("iface", "en0", "Interface to capture packets")
+	iface    = flag.String("iface", "wlp2s0", "Interface to capture packets")
 	pcapOut  = flag.String("pcapOut", "", "File path to log all packets")
 	enableAF = flag.Bool("enableAf", false, "Enable afpacket mode")
 )
@@ -53,10 +53,10 @@ func main() {
 	// Listen on the interface
 	var sniffer Sniffer
 	if config.enableAF {
-		sniffer = &PcapSniffer{}
+		sniffer = &AfpacketSniffer{}
 		log.Print("Using afpacket to sniff packets")
 	} else {
-		sniffer = &AfpacketSniffer{}
+		sniffer = &PcapSniffer{}
 		log.Print("Using libpcap to sniff packets")
 	}
 
